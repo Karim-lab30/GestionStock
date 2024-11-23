@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+
+namespace StockZilla.Models
+{
+    public class produitContext : DbContext
+    {
+        public produitContext() : base("name=Entities") { }
+
+        public DbSet<produits> Produits { get; set; }
+        public DbSet<catego> Categories { get; set; }
+
+
+
+    }
+
+
+}
