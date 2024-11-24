@@ -1,0 +1,22 @@
+﻿INSERT INTO produits (nom_prod, id_categorie, qte_prod, prix_moyen)
+VALUES
+('Roman classique', 8, 100, 12.00),
+('Guide de voyage', 8, 30, 18.00),
+('Livre de recettes', 8, 40, 20.00),
+('Bande dessinée', 8, 50, 15.00),
+('Livre de développement personnel', 8, 25, 22.00),
+('Roman de science-fiction', 8, 40, 14.00),
+('Recueil de poésie', 8, 30, 10.00),
+('Dictionnaire français', 8, 20, 25.00),
+('Manuel scolaire', 8, 50, 8.00),
+('Biographie célèbre', 8, 20, 18.00),
+('Livre pour enfants', 8, 60, 10.00),
+('Thriller contemporain', 8, 35, 16.00),
+('Roman policier', 8, 40, 14.00),
+('Atlas géographique', 8, 25, 30.00),
+('Manga (tome unique)', 8, 70, 9.00),
+('Essai philosophique', 8, 20, 20.00),
+('Roman fantastique', 8, 40, 13.00),
+('Livre d’histoire', 8, 30, 22.00),
+('Recueil de nouvelles', 8, 50, 12.00),
+('Roman graphique', 8, 25, 18.00);

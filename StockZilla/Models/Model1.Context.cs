@@ -36,6 +36,7 @@ namespace StockZilla.Models
         public virtual DbSet<detailsachat> detailsachat { get; set; }
         public virtual DbSet<detailsvente> detailsvente { get; set; }
         public virtual DbSet<livraison> livraison { get; set; }
+        public virtual DbSet<Panier> Panier { get; set; }
         public virtual DbSet<produits> produits { get; set; }
         public virtual DbSet<vente> vente { get; set; }
     }

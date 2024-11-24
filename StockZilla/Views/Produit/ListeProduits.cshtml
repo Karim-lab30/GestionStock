@@ -40,7 +40,7 @@
         {
             <tr>
                 <td>@produit.Id</td>
-                <td>@produit.NomProduit</td>
+                <td >@produit.NomProduit</td>
                 <td>
                     @produit.NomCategorie
                     <a href="@Url.Action("ListeProduit", new { categorieId = produit.IdCategorie })">
@@ -68,7 +68,7 @@
                     }
                 </td>
 
-                <td>
+                <td style="display:flex; flex-direction:row">
                     <a href="@Url.Action("Details", "Produit", new { id = produit.Id })" title="Voir">
                         <i class="fa-solid fa-eye" style="padding-left: 15px; color: slategrey;"></i>
                     </a>

@@ -22,6 +22,7 @@ namespace StockZilla.Models
             this.adresse = new HashSet<adresse>();
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
+            this.Panier = new HashSet<Panier>();
             this.vente = new HashSet<vente>();
             this.vente1 = new HashSet<vente>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
@@ -50,6 +51,8 @@ namespace StockZilla.Models
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Panier> Panier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<vente> vente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

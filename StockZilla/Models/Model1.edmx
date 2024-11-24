@@ -132,12 +132,21 @@
           <Property Name="duree_livraison" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="livre" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Panier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreation" Type="datetime" Nullable="false" />
+          <Property Name="Etat" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="produits">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="nom_prod" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nom_prod" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="id_categorie" Type="int" Nullable="false" />
           <Property Name="qte_prod" Type="int" />
           <Property Name="prix_moyen" Type="float" />
@@ -294,6 +303,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Panier_User">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Panier" Type="Self.Panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Panier">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_produits_categorie">
           <End Role="catego" Type="Self.catego" Multiplicity="1" />
           <End Role="produits" Type="Self.produits" Multiplicity="*" />
@@ -367,6 +388,7 @@
           <EntitySet Name="detailsachat" EntityType="Self.detailsachat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="detailsvente" EntityType="Self.detailsvente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="livraison" EntityType="Self.livraison" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Panier" EntityType="Self.Panier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="produits" EntityType="Self.produits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vente" EntityType="Self.vente" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_achats_fourn" Association="Self.FK_achats_fourn">
@@ -409,6 +431,10 @@
             <End Role="vente" EntitySet="vente" />
             <End Role="detailsvente" EntitySet="detailsvente" />
           </AssociationSet>
+          <AssociationSet Name="FK_Panier_User" Association="Self.FK_Panier_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Panier" EntitySet="Panier" />
+          </AssociationSet>
           <AssociationSet Name="FK_produits_categorie" Association="Self.FK_produits_categorie">
             <End Role="catego" EntitySet="catego" />
             <End Role="produits" EntitySet="produits" />
@@ -446,6 +472,7 @@
           <EntitySet Name="detailsachat" EntityType="Model.detailsachat" />
           <EntitySet Name="detailsvente" EntityType="Model.detailsvente" />
           <EntitySet Name="livraison" EntityType="Model.livraison" />
+          <EntitySet Name="Panier" EntityType="Model.Panier" />
           <EntitySet Name="produits" EntityType="Model.produits" />
           <EntitySet Name="vente" EntityType="Model.vente" />
           <AssociationSet Name="FK_achats_fourn" Association="Model.FK_achats_fourn">
@@ -471,6 +498,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Panier_User" Association="Model.FK_Panier_User">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Panier" EntitySet="Panier" />
           </AssociationSet>
           <AssociationSet Name="FK_vente_client" Association="Model.FK_vente_client">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -593,6 +624,7 @@
           <NavigationProperty Name="adresse" Relationship="Model.FK_user_adresse" FromRole="AspNetUsers" ToRole="adresse" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Panier" Relationship="Model.FK_Panier_User" FromRole="AspNetUsers" ToRole="Panier" />
           <NavigationProperty Name="vente" Relationship="Model.FK_vente_client" FromRole="AspNetUsers" ToRole="vente" />
           <NavigationProperty Name="vente1" Relationship="Model.FK_vente_users" FromRole="AspNetUsers" ToRole="vente" />
           <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
@@ -645,12 +677,22 @@
           <Property Name="livre" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="vente" Relationship="Model.FK_vente_livraison" FromRole="livraison" ToRole="vente" />
         </EntityType>
+        <EntityType Name="Panier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Etat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_Panier_User" FromRole="Panier" ToRole="AspNetUsers" />
+        </EntityType>
         <EntityType Name="produits">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="nom_prod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nom_prod" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="id_categorie" Type="Int32" Nullable="false" />
           <Property Name="qte_prod" Type="Int32" />
           <Property Name="prix_moyen" Type="Double" />
@@ -758,6 +800,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Panier_User">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="Model.Panier" Role="Panier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Panier">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -979,6 +1033,16 @@
                 <ScalarProperty Name="livre" ColumnName="livre" />
                 <ScalarProperty Name="duree_livraison" ColumnName="duree_livraison" />
                 <ScalarProperty Name="livreur" ColumnName="livreur" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Panier">
+            <EntityTypeMapping TypeName="Model.Panier">
+              <MappingFragment StoreEntitySet="Panier">
+                <ScalarProperty Name="Etat" ColumnName="Etat" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
