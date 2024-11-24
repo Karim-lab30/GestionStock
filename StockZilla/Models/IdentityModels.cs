@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.BuilderProperties;
 
 namespace StockZilla.Models
 {
@@ -24,6 +25,8 @@ namespace StockZilla.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        public DbSet<Adresses> Adresses { get; set; }
+
 
         public static ApplicationDbContext Create()
         {

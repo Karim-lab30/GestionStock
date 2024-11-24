@@ -31,11 +31,37 @@
             </div>
         </div>
         <div class="row">
+            @Html.LabelFor(m => m.Adresse, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Adresse, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Pays, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Pays, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Ville, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Ville, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.CodePostale, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.CodePostale, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
             <div class="offset-md-2 col-md-10">
                 <input type="submit" value="S'inscrire" class="btn btn-outline-dark" />
             </div>
         </div>
     }
+
 </main>
 
 @section Scripts {

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.BuilderProperties;
 using Microsoft.Owin.Security;
 using StockZilla.Models;
 
@@ -155,7 +156,20 @@ namespace StockZilla.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var address = new Adresses
+                        {
+                            adresses = model.Adresse,
+                            ville = model.Ville,
+                            pays = model.Pays,
+                            code_postal = model.CodePostale,
+                            id_user = user.Id 
+                        };
+
+                        context.Adresses.Add(address);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
                     
                     // Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un e-mail avec ce lien

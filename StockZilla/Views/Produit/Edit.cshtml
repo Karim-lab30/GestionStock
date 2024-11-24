@@ -54,6 +54,17 @@
             @Html.TextBoxFor(m => m.Remise, new { @class = "form-control", placeholder = "Remise" })
             @Html.ValidationMessageFor(m => m.Remise, "", new { @class = "text-danger" })
         </div>
+        
+        {
+            <div class="form-group">
+                <label for="Image" class="control-label">Image</label>
+                <input type="file" id="Image" name="Image" class="form-control" accept="image/*" />
+                @Html.ValidationMessage("Image", "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Charger</button>
+        }
+
 
         <div class="form-group text-end">
             <button type="submit" class="btn btn-primary">

@@ -11,7 +11,7 @@ namespace StockZilla.Controllers
     public class ProduitController : Controller
     {
         produitContext prod = new produitContext();
-
+        [Authorize(Roles = "admin")]
         public ActionResult ListeProduit(int? categorieId)
         {
             var produitQuery = prod.Produits
